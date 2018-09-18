@@ -19,8 +19,8 @@
         crossorigin="anonymous"></script>
 
 
-        <style>
-            .bdr{
+    <style>
+        .bdr{
                 border: solid red 2px;
                 border-radius: 10px;
                 text-align: center;
@@ -29,19 +29,20 @@
                 background-color: rgba(255,255,255,1)
             }
         </style>
-    </head>
+</head>
 
 <body>
     <div id="app" class="container">
+        <br />
         <div class="row">
             <div class="col-md-6">
-                    <h1>{{titulo}}</h1>
-                    <br />
-                    <ul class="list-group">
-                        <li class="list-group-item" v-for="(item,index) in linguagens">
-                            {{item.nome}} <span class="badge badge-secondary badge-success float-right">{{item.desc}}</span>
-                        </li>
-                    </ul>
+                <h1>{{titulo}}</h1>
+                <br />
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="(item,index) in linguagens">
+                        {{item.nome | trunc(nome) }} <span class="badge badge-secondary badge-success float-right">{{item.desc}}</span>
+                    </li>
+                </ul>
             </div>
             <div class="col-md-6">
                 <div :class="bdr">
@@ -56,13 +57,18 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                <label for="">Nome:</label>
-                <input type="text" class="form-control" v-model="nome"/>
-                <small class="form-text text-muted">
-                    {{nome}}
-                </small>
+                    <label for="">Nome:</label>
+                    <input type="text" class="form-control" v-model="nome" />
+                    <small class="form-text text-muted">
+                        {{nome}}
+                    </small>
+                </div>
+
             </div>
-                
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" @click="von()">V-ON</button>
             </div>
         </div>
 
@@ -74,15 +80,33 @@
             data: {
                 titulo: "Sou Manéeeeee",
                 texto: "Vue vs Angular",
-                linguagens:[
-                    {nome:"Javascript", desc:"Show"},
-                    {nome:"Java", desc:"Quebra o cabeção"},
-                    {nome:"PHP", desc:"Mole feito pudim"},
-                    {nome:"Objective-C", desc:"Sai pra lá"}
+                linguagens: [
+                    { nome: "Javascript", desc: "Show" },
+                    { nome: "Java", desc: "Quebra o cabeção" },
+                    { nome: "PHP", desc: "Mole feito pudim" },
+                    { nome: "Objective-C", desc: "Sai pra lá" }
                 ],
-                bdr:["bdr", "bdr2"],
-                mostrar : false,
-                nome:""
+                bdr: ["bdr", "bdr2"],
+                mostrar: false,
+                nome: ""
+            },
+            methods: {
+                von(str = 'Jaozinho') {
+                    alert(str)
+                }
+            },
+            filters: {
+                toUpper(str) {
+                    return str.toUpperCase();
+                },
+                allToUpper(str) {
+
+                },
+                trunc(str, size = 5) {
+                    console.log("Func trunc()");
+                    size = Number.parseInt(size);
+                    return Number.isInteger(size) ? str.substring(0, size) : str;
+                }
             }
         });
     </script>
